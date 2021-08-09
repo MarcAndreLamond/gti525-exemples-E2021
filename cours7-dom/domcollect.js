@@ -13,13 +13,15 @@ var getElementsRootedAt = function(tagName, id) {
 var search = function(node, text) {
     var found = false;
     if (node.nodeType == 3) {
-		if (node.nodeValue.includes(text) found = true;
+		if (node.nodeValue.includes(text)) {
+			found = true;
 		} else { // les noeuds texte n'ont pas enfants
 		var cn = node.childNodes;
 		if (cn) {
 			for (var i=0; i<cn.length; i++) {
 			found = found || search(cn[i], text);
 			}
+		}
 		}	
     };
     return found;	

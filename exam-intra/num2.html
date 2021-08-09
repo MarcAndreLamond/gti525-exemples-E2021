@@ -1,0 +1,48 @@
+<html>
+
+<head>
+  <script>
+    const EventPropagation = { Continue: 0, Stop: 1, StopImmediatly: 2 };
+    var addListener = function (id, useCapture, propagation, text) {
+      var handler = function (ev) {
+        console.log(text);
+        if (propagation) {
+          if (propagation == EventPropagation.Stop) {
+            ev.stopPropagation();
+          }
+          else if (propagation == EventPropagation.StopImmediatly) {
+            ev.stopImmediatePropagation();
+          }
+        }
+      }
+      document.getElementById(id).addEventListener("click", handler, useCapture);
+    };
+
+    var init = function () {
+      addListener("btn", true, EventPropagation.Continue, "*take a breath*");
+      addListener("three", false, EventPropagation.Continue, "Frog goes croak");
+      addListener("two", true, EventPropagation.Continue, "Dog goes woof");
+      addListener("three", true, EventPropagation.Continue, "Bird goes tweet");
+      addListener("two", true, EventPropagation.Continue, "Cat goes meow");
+      addListener("three", false, EventPropagation.continue, "And the elephant goes toot");
+      addListener("four", false, EventPropagation.StopImmediatly, "And mouse goes squeek");
+      addListener("three", false, EventPropagation.Continue, "And the imp goes woof");
+      addListener("four", false, EventPropagation.Continue, "Cow goes moo");
+    }
+    window.addEventListener("load", init);
+  </script>
+</head>
+
+<body>
+  <div id="one">
+    <div id="two">
+      <div id="three">
+        <div id="four">
+          <button id="btn">Test</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
